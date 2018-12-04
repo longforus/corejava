@@ -1,9 +1,16 @@
 package v2ch05.query;
 
-import java.io.*;
-import java.nio.file.*;
-import java.sql.*;
-import java.util.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import static v2ch05.test.TestDB.getConnection;
 
 /**
  * This program demonstrates several complex database queries.
@@ -151,25 +158,5 @@ public class QueryTest
             return options.get(sel - 1);
       }      
    }
-
-   /**
-    * Gets a connection from the properties specified in the file database.properties.
-    * @return the database connection
-    */
-   public static Connection getConnection() throws SQLException, IOException
-   {
-      Properties props = new Properties();
-      try (InputStream in = Files.newInputStream(Paths.get("database.properties")))
-      {
-         props.load(in);
-      }
-
-      String drivers = props.getProperty("jdbc.drivers");
-      if (drivers != null) System.setProperty("jdbc.drivers", drivers);
-      String url = props.getProperty("jdbc.url");
-      String username = props.getProperty("jdbc.username");
-      String password = props.getProperty("jdbc.password");
-
-      return DriverManager.getConnection(url, username, password);
-   }
+   
 }

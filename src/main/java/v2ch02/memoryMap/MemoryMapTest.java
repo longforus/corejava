@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.*;
 import java.nio.channels.*;
 import java.nio.file.*;
+import java.util.Scanner;
 import java.util.zip.*;
 
 /**
@@ -76,9 +77,14 @@ public class MemoryMapTest
 
    public static void main(String[] args) throws IOException
    {
+      System.out.println("Enter a file path:");
+      Scanner scanner = new Scanner(System.in);
+      String name = scanner.nextLine();
+      scanner.close();
       System.out.println("Input Stream:");
       long start = System.currentTimeMillis();
-      Path filename = Paths.get(args[0]);
+      Path filename = Paths.get(name);
+      System.out.println(filename+"  "+filename.toFile().exists());
       long crcValue = checksumInputStream(filename);
       long end = System.currentTimeMillis();
       System.out.println(Long.toHexString(crcValue));

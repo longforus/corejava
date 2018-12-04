@@ -35,12 +35,14 @@ public class TestDB
       try (Connection conn = getConnection();
          Statement stat = conn.createStatement())
       {
+
          stat.executeUpdate("CREATE TABLE Greetings (Message CHAR(20))");
          stat.executeUpdate("INSERT INTO Greetings VALUES ('Hello, World!')");
+         stat.executeUpdate("INSERT INTO Greetings VALUES ('long for us')");
 
          try (ResultSet result = stat.executeQuery("SELECT * FROM Greetings"))
          {
-            if (result.next())
+            while (result.next())
                System.out.println(result.getString(1));
          }
          stat.executeUpdate("DROP TABLE Greetings");
@@ -54,7 +56,7 @@ public class TestDB
    public static Connection getConnection() throws SQLException, IOException
    {
       Properties props = new Properties();
-      try (InputStream in = Files.newInputStream(Paths.get("database.properties")))
+      try (InputStream in = Files.newInputStream(Paths.get("D:\\IdeaProjects\\corejava\\src\\main\\java\\v2ch05\\database.properties")))
       {
          props.load(in);
       }

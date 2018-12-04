@@ -2,6 +2,7 @@ package v2ch04.server;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -14,6 +15,7 @@ public class EchoServer
 {
    public static void main(String[] args) throws IOException
    {
+      System.out.println("server start:");
       // establish server socket
       try (ServerSocket s = new ServerSocket(8189))
       {
@@ -26,7 +28,7 @@ public class EchoServer
             try (Scanner in = new Scanner(inStream, "UTF-8"))
             {
                PrintWriter out = new PrintWriter(
-                  new OutputStreamWriter(outStream, "UTF-8"),
+                  new OutputStreamWriter(outStream, StandardCharsets.UTF_8),
                   true /* autoFlush */);
       
                out.println("Hello! Enter BYE to exit.");
@@ -39,6 +41,7 @@ public class EchoServer
                   out.println("Echo: " + line);
                   if (line.trim().equals("BYE")) done = true;
                }
+               System.out.println("over "+in.hasNextLine());
             }
          }
       }

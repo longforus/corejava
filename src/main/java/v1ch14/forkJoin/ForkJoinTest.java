@@ -54,7 +54,7 @@ class Counter extends RecursiveTask<Integer>
          int mid = (from + to) / 2;
          Counter first = new Counter(values, from, mid, filter);
          Counter second = new Counter(values, mid, to, filter);
-         invokeAll(first, second);
+         ForkJoinTask.invokeAll(first, second);
          return first.join() + second.join();
       }
    }

@@ -5,6 +5,8 @@ import java.nio.file.*;
 import java.util.*;
 import java.sql.*;
 
+import static v2ch05.test.TestDB.getConnection;
+
 /**
  * Executes all SQL statements in a file. Call this program as <br>
  * java -classpath driverPath:. ExecSQL commandFile
@@ -65,27 +67,6 @@ class ExecSQL
       }
    }
 
-   /**
-    * Gets a connection from the properties specified in the file database.properties
-    * @return the database connection
-    */
-   public static Connection getConnection() throws SQLException, IOException
-   {
-      Properties props = new Properties();
-      try (InputStream in = Files.newInputStream(Paths.get("database.properties")))
-      {
-         props.load(in);
-      }
-
-      String drivers = props.getProperty("jdbc.drivers");
-      if (drivers != null) System.setProperty("jdbc.drivers", drivers);
-
-      String url = props.getProperty("jdbc.url");
-      String username = props.getProperty("jdbc.username");
-      String password = props.getProperty("jdbc.password");
-
-      return DriverManager.getConnection(url, username, password);
-   }
 
    /**
     * Prints a result set.
