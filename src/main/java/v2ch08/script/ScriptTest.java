@@ -39,14 +39,14 @@ public class ScriptTest
                   System.exit(1);
                }               
 
-               final String frameClassName = args.length < 2 ? "buttons1.ButtonFrame" : args[1]; 
+               final String frameClassName = args.length < 2 ? "v2ch08.buttons1.ButtonFrame" : args[1];
                
                JFrame frame = (JFrame) Class.forName(frameClassName).newInstance();
                InputStream in = frame.getClass().getResourceAsStream("init." + language);
                if (in != null) engine.eval(new InputStreamReader(in));
                Map<String, Component> components = new HashMap<>();
                getComponentBindings(frame, components);
-               components.forEach((name, c) -> engine.put(name, c)); 
+               components.forEach(engine::put);
 
                final Properties events = new Properties();
                in = frame.getClass().getResourceAsStream(language + ".properties");

@@ -24,6 +24,9 @@ public class Formatting
       // 16 juillet 1969 09:32:00 EDT
       System.out.println(formatted);
 
+      formatted = formatter.withLocale(Locale.CHINA).format(apollo11launch);
+      System.out.println(formatted);
+
       formatter = DateTimeFormatter.ofPattern("E yyyy-MM-dd HH:mm");
       formatted = formatter.format(apollo11launch);
       System.out.println(formatted);

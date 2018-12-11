@@ -9,6 +9,7 @@ import javax.tools.*;
 import javax.tools.JavaFileObject.*;
 
 /**
+ * 用代码构建一个class 编译后执行
  * @version 1.01 2016-05-10
  * @author Cay Horstmann
  */
@@ -17,7 +18,6 @@ public class CompilerTest
    public static void main(final String[] args) throws IOException, ClassNotFoundException
    {
       JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-
       final List<ByteArrayJavaClass> classFileObjects = new ArrayList<>();
 
       DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
@@ -39,7 +39,7 @@ public class CompilerTest
          };
 
 
-      String frameClassName = args.length == 0 ? "buttons2.ButtonFrame" : args[0]; 
+      String frameClassName = args.length == 0 ? "v2ch08.buttons2.ButtonFrame" : args[0];
       JavaFileObject source = buildSource(frameClassName);
       JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, null,
             null, Arrays.asList(source));

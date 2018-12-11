@@ -1,11 +1,17 @@
 package v2ch09.classLoader;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.nio.file.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.EventQueue;
+import java.awt.GridBagLayout;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * This program demonstrates a custom class loader that decrypts class files.
@@ -66,6 +72,7 @@ class ClassLoaderFrame extends JFrame
       }
       catch (Throwable e)
       {
+         e.printStackTrace();
          JOptionPane.showMessageDialog(this, e);
       }
    }
@@ -94,7 +101,8 @@ class CryptoClassLoader extends ClassLoader
       {
          byte[] classBytes = null;
          classBytes = loadClassBytes(name);
-         Class<?> cl = defineClass(name, classBytes, 0, classBytes.length);
+         String[] split = name.split("\\.");
+         Class<?> cl = defineClass(split[split.length-1], classBytes, 0, classBytes.length);
          if (cl == null) throw new ClassNotFoundException(name);
          return cl;
       }
@@ -112,7 +120,10 @@ class CryptoClassLoader extends ClassLoader
    private byte[] loadClassBytes(String name) throws IOException
    {
       String cname = name.replace('.', '/') + ".caesar";
-      byte[] bytes = Files.readAllBytes(Paths.get(cname));
+      File file = Paths.get(cname).toFile();
+      System.out.println(file.getAbsolutePath()+file.exists());
+      byte[] bytes = Files.readAllBytes(file.toPath());
+      System.out.println(bytes.length);
       for (int i = 0; i < bytes.length; i++)
          bytes[i] = (byte) (bytes[i] - key);
       return bytes;

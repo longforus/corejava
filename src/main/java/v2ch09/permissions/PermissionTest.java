@@ -13,7 +13,7 @@ public class PermissionTest
 {
    public static void main(String[] args)
    {
-      System.setProperty("java.security.policy", "permissions/PermissionTest.policy");      
+      System.setProperty("java.security.policy", "D:\\IdeaProjects\\corejava\\src\\main\\java\\v2ch09\\permissions\\PermissionTest.policy");
       System.setSecurityManager(new SecurityManager());
       EventQueue.invokeLater(() ->
          {

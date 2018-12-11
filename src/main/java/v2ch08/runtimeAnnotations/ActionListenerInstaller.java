@@ -44,13 +44,7 @@ public class ActionListenerInstaller
    public static void addListener(Object source, final Object param, final Method m)
          throws ReflectiveOperationException
    {
-      InvocationHandler handler = new InvocationHandler()
-         {
-            public Object invoke(Object proxy, Method mm, Object[] args) throws Throwable
-            {
-               return m.invoke(param);
-            }
-         };
+      InvocationHandler handler = (proxy, mm, args) -> m.invoke(param);
 
       Object listener = Proxy.newProxyInstance(null,
             new Class[] { java.awt.event.ActionListener.class }, handler);
