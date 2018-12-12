@@ -12,7 +12,7 @@ extern "C" {
  * Method:    greeting
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_HelloNative_greeting
+JNIEXPORT void JNICALL Java_v2ch12_helloNative_HelloNative_greeting
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus
